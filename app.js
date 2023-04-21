@@ -8,52 +8,38 @@ window.addEventListener("scroll", function () {
   // Get the height of the viewport
   var viewportHeight = window.innerHeight;
 
-  // If the user has scrolled to the bottom of the page
-  if (scrollPosition + viewportHeight === pageHeight) {
+  // Calculate the distance between the bottom of the viewport and the bottom of the page
+  var scrollPercentage = ((scrollPosition + viewportHeight) / pageHeight) * 100;
+
+  // If the user has scrolled close to the bottom of the page
+  if (scrollPercentage >= 60) {
+    // Change 90 to the desired percentage
     // Call your function here
-    myFunction();
+    removePosts();
   }
 });
 
-function myFunction() {
-  // Select the target node to observe
-  const targetNode = document.querySelector('[data-pb-monitored="true"]');
+function removePosts() {
+  // Get all <span> elements on the page
+  let count = 0;
+  const spanElements = document.getElementsByTagName("span");
 
-  // Create a new MutationObserver object
-  const observer = new MutationObserver(function (mutationsList, observer) {
-    // Check if any new items have been added to the newsfeed
-    if (mutationsList.some((mutation) => mutation.addedNodes.length > 0)) {
-      // Call your function here
-      removeS();
-    }
-  });
+  // Loop through all <span> elements and check their content
+  for (let i = 0; i < spanElements.length; i++) {
+    const spanContent = spanElements[i].textContent;
 
-  // Configure the observer to watch for changes to the newsfeed
-  const config = { childList: true, subtree: true };
-  observer.observe(targetNode, config);
-
-  function removeS() {
-    // Get all <span> elements on the page
-    let count = 0;
-    const spanElements = document.getElementsByTagName("span");
-
-    // Loop through all <span> elements and check their content
-    for (let i = 0; i < spanElements.length; i++) {
-      const spanContent = spanElements[i].textContent;
-
-      // Check if the content of the <span> element matches "Gợi ý cho bạn"
-      // You can edit this to match with your language
-      if (spanContent === "Gợi ý cho bạn") {
-        // Do something with the matching <span> element
-        let currentElement = spanElements[i];
-        while (currentElement.className != "x1lliihq") {
-          currentElement = currentElement.parentElement;
-        }
-        //   console.log(currentElement.className);
-        currentElement.remove();
-        count++;
+    // Check if the content of the <span> element matches "Gợi ý cho bạn"
+    // You can edit this to match with your language
+    if (spanContent === "Gợi ý cho bạn") {
+      // Do something with the matching <span> element
+      let currentElement = spanElements[i];
+      while (currentElement.className != "x1lliihq") {
+        currentElement = currentElement.parentElement;
       }
+      //   console.log(currentElement.className);
+      currentElement.remove();
+      count++;
     }
-    console.log("removed posts: " + count);
   }
+  console.log("removed posts: " + count);
 }
