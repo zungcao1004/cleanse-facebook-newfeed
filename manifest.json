@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Cleanse Facebook Newfeed ",
+  "version": "6.9",
+  "description": "Remove Suggested for you posts on facebook",
+  "content_scripts": [
+    {
+      "js": ["app.js"],
+      "matches": ["https://www.facebook.com/"]
+    }
+  ]
+}
