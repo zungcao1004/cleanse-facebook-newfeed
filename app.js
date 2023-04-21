@@ -1,5 +1,21 @@
-// Wait for 10 seconds after the page loads
-setTimeout(function () {
+window.addEventListener("scroll", function () {
+  // Get the current scroll position
+  var scrollPosition = window.pageYOffset;
+
+  // Get the height of the page
+  var pageHeight = document.documentElement.scrollHeight;
+
+  // Get the height of the viewport
+  var viewportHeight = window.innerHeight;
+
+  // If the user has scrolled to the bottom of the page
+  if (scrollPosition + viewportHeight === pageHeight) {
+    // Call your function here
+    myFunction();
+  }
+});
+
+function myFunction() {
   // Select the target node to observe
   const targetNode = document.querySelector('[data-pb-monitored="true"]');
 
@@ -27,10 +43,7 @@ setTimeout(function () {
 
       // Check if the content of the <span> element matches "Gợi ý cho bạn"
       // You can edit this to match with your language
-      if (
-        spanContent === "Gợi ý cho bạn" ||
-        spanContent === "Suggested for you"
-      ) {
+      if (spanContent === "Gợi ý cho bạn") {
         // Do something with the matching <span> element
         let currentElement = spanElements[i];
         while (currentElement.className != "x1lliihq") {
@@ -43,4 +56,4 @@ setTimeout(function () {
     }
     console.log("removed posts: " + count);
   }
-}, 10000); // Wait for 10 seconds (10,000 milliseconds) before running the code
+}
