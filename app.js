@@ -12,10 +12,11 @@ window.addEventListener("scroll", function () {
   var scrollPercentage = ((scrollPosition + viewportHeight) / pageHeight) * 100;
 
   // If the user has scrolled close to the bottom of the page
-  if (scrollPercentage >= 60) {
+  if (scrollPercentage >= 30) {
     // Change 90 to the desired percentage
     // Call your function here
     removePosts();
+    removeReels();
   }
 });
 
@@ -42,4 +43,24 @@ function removePosts() {
     }
   }
   console.log("removed posts: " + count);
+}
+
+function removeReels() {
+  let count = 0;
+  const spanElements = document.getElementsByTagName("span");
+  for (let i = 0; i < spanElements.length; i++) {
+    const spanContent = spanElements[i].textContent;
+
+    if (spanContent === "Reels và video ngắn") {
+      // Do something with the matching <span> element
+      let currentElement = spanElements[i];
+      while (currentElement.className != "x78zum5 x1n2onr6 xh8yej3") {
+        currentElement = currentElement.parentElement;
+      }
+      //   console.log(currentElement.className);
+      currentElement.remove();
+      count++;
+    }
+  }
+  console.log("removed reel posts: " + count);
 }
