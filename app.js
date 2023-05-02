@@ -13,8 +13,6 @@ window.addEventListener("scroll", function () {
 
   // If the user has scrolled close to the bottom of the page
   if (scrollPercentage >= 30) {
-    // Change 90 to the desired percentage
-    // Call your function here
     removePosts();
     removeReels();
   }
