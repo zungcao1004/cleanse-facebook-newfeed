@@ -1,3 +1,7 @@
+var postCount = 0
+var reelCount = 0
+var sponCount = 0
+
 window.addEventListener("scroll", function () {
   // Get the current scroll position
   var scrollPosition = window.pageYOffset;
@@ -11,24 +15,21 @@ window.addEventListener("scroll", function () {
   // Calculate the distance between the bottom of the viewport and the bottom of the page
   var scrollPercentage = ((scrollPosition + viewportHeight) / pageHeight) * 100;
 
-  var postCount = 0
-  var reelCount = 0
-
   // If the user has scrolled close to the bottom of the page
   if (scrollPercentage >= 30) {
-    postCount = removePosts();
-    reelCount = removeReels();
+    removePosts();
+    removeReels();
+    removeSponsoreds();
   }
-  
-  if(scrollPercentage>=75){
-    console.log(postCount,reelCount);
+
+  if (scrollPercentage>=75) {
+    console.log(postCount,reelCount,sponCount)
   }
 
 });
 
 function removePosts() {
   // Get all <span> elements on the page
-  let count = 0;
   const spanElements = document.getElementsByTagName("span");
 
   // Loop through all <span> elements and check their content
@@ -45,14 +46,12 @@ function removePosts() {
       }
       //   console.log(currentElement.className);
       currentElement.remove();
-      count++;
+      postCount++;
     }
   }
-  return count;
 }
 
 function removeReels() {
-  let count = 0;
   const spanElements = document.getElementsByTagName("span");
   for (let i = 0; i < spanElements.length; i++) {
     const spanContent = spanElements[i].textContent;
@@ -65,8 +64,16 @@ function removeReels() {
       }
       //   console.log(currentElement.className);
       currentElement.remove();
-      count++;
+      reelCount++;
     }
   }
-  return count;
+}
+
+
+function removeSponsoreds(){
+  var addsblockElements = document.querySelectorAll('div[addsblock*="true"]');
+  addsblockElements.forEach((el)=>{
+    el.remove();
+    sponCount++;
+  });
 }
