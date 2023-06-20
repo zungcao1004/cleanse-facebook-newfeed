@@ -11,11 +11,19 @@ window.addEventListener("scroll", function () {
   // Calculate the distance between the bottom of the viewport and the bottom of the page
   var scrollPercentage = ((scrollPosition + viewportHeight) / pageHeight) * 100;
 
+  var postCount = 0
+  var reelCount = 0
+
   // If the user has scrolled close to the bottom of the page
   if (scrollPercentage >= 30) {
-    removePosts();
-    removeReels();
+    postCount = removePosts();
+    reelCount = removeReels();
   }
+  
+  if(scrollPercentage>=75){
+    console.log(postCount,reelCount);
+  }
+
 });
 
 function removePosts() {
@@ -29,7 +37,7 @@ function removePosts() {
 
     // Check if the content of the <span> element matches "Gợi ý cho bạn"
     // You can edit this to match with your language
-    if (spanContent === "Gợi ý cho bạn") {
+    if (spanContent === "Suggested for you") {
       // Do something with the matching <span> element
       let currentElement = spanElements[i];
       while (currentElement.className != "x1lliihq") {
@@ -40,7 +48,7 @@ function removePosts() {
       count++;
     }
   }
-  console.log("removed posts: " + count);
+  return count;
 }
 
 function removeReels() {
@@ -49,7 +57,7 @@ function removeReels() {
   for (let i = 0; i < spanElements.length; i++) {
     const spanContent = spanElements[i].textContent;
 
-    if (spanContent === "Reels và video ngắn") {
+    if (spanContent === "Reels and short videos") {
       // Do something with the matching <span> element
       let currentElement = spanElements[i];
       while (currentElement.className != "x78zum5 x1n2onr6 xh8yej3") {
@@ -60,5 +68,5 @@ function removeReels() {
       count++;
     }
   }
-  console.log("removed reel posts: " + count);
+  return count;
 }
