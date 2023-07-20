@@ -2,4 +2,4 @@
 
 CLEANSE FACEBOOK NEWFEED BY REMOVE ALL 'SUGGESTED FOR YOU' POSTS EVERY TIME YOU SCROLL DOWN TO LOAD MORE NEW POSTS.
 
-for english interface.
+for vietnamese and english interface.
