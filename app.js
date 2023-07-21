@@ -12,7 +12,7 @@ window.addEventListener("scroll", function () {
 
   var scrollPercentage = ((scrollPosition + viewportHeight) / pageHeight) * 100;
 
-  if (scrollPercentage >= 30) {
+  if (scrollPercentage >= 1) {
     removePosts();
     removeReels();
     removeSponsoreds();
