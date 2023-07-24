@@ -13,51 +13,27 @@ window.addEventListener("scroll", function () {
   var scrollPercentage = ((scrollPosition + viewportHeight) / pageHeight) * 100;
 
   if (scrollPercentage >= 1) {
-    removePosts();
-    removeReels();
-    removeSponsoreds();
-	  removeStoryPosts();
+    	removeSponsoreds();
+	remove();
+	console.log(postCount,reelCount,sponCount, reelPostCount);
   }
-
-  if (scrollPercentage>=75) {
-    console.log(postCount,reelCount,sponCount, reelPostCount)
-  }
-
 });
 
-function removePosts() {
-  const spanElements = document.getElementsByTagName("span");
-
-  for (let i = 0; i < spanElements.length; i++) {
-    const spanContent = spanElements[i].textContent;
-
-    if (spanContent === "Suggested for you") {
-      let currentElement = spanElements[i];
-      while (currentElement.className != "x1lliihq") {
-        currentElement = currentElement.parentElement;
-      }
-      currentElement.remove();
-      postCount++;
-    }
-  }
+function remove(){
+	var allPosts = document.querySelectorAll(".x1lliihq");
+	for (let post of allPosts) {
+		if (post.textContent.includes("Suggested for you")){
+			post.remove();
+			postCount++;
+		} else if (post.textContent.includes("Reels")){
+			post.remove();
+			reelPostCount++;
+		} else if (post.textContent.includes("Reels and short videos")){
+                        post.remove();
+                	reelCount++;
+		}
+ 	}	
 }
-
-function removeReels() {
-  const spanElements = document.getElementsByTagName("span");
-  for (let i = 0; i < spanElements.length; i++) {
-    const spanContent = spanElements[i].textContent;
-
-    if (spanContent === "Reels and short videos") {
-      let currentElement = spanElements[i];
-      while (currentElement.className != "x78zum5 x1n2onr6 xh8yej3") {
-        currentElement = currentElement.parentElement;
-      }
-      currentElement.remove();
-      reelCount++;
-    }
-  }
-}
-
 
 function removeSponsoreds(){
   var addsblockElements = document.querySelectorAll('div[addsblock*="true"]');
@@ -67,19 +43,3 @@ function removeSponsoreds(){
   });
 }
 
-function removeStoryPosts(){
-  const spanElements = document.getElementsByTagName("span");
-
-  for (let i = 0; i < spanElements.length; i++) {
-    const spanContent = spanElements[i].textContent;
-
-    if (spanContent === "Reel") {
-      let currentElement = spanElements[i];
-      while (currentElement.className != "x1lliihq") {
-        currentElement = currentElement.parentElement;
-      }
-      currentElement.remove();
-      reelPostCount++;
-    }
-  }
-}
